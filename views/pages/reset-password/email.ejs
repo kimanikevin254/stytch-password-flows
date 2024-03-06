@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../../partials/head'); %>
+        <style>
+            .eye-icon,
+            .confirm-eye-icon {
+                position: absolute;
+                top: 60%;
+                right: 0;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body class="container">
+        <form
+            action="/password/reset/email"
+            method="post"
+            class="w-50 mx-auto mt-4"
+        >
+            <h4>Please enter the new password for your account</h4>
+            <div class="mb-3 position-relative">
+                <label for="password" class="form-label">Password</label>
+                <input
+                    type="password"
+                    name="password"
+                    class="form-control"
+                    id="password"
+                />
+                <svg
+                    class="eye-icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <path
+                        d="M12 15c-2.76 0-5-2.24-5-5s2.24-5 5-5s5 2.24 5 5s-2.24 5-5 5zm0-8a2 2 0 1 0 0 4a2 2 0 0 0 0-4zm0 3a1 1 0 1 1 0-2a1 1 0 0 1 0 2z"
+                    />
+                </svg>
+            </div>
+
+            <div class="mb-3 position-relative">
+                <label for="confirm_password" class="form-label"
+                    >Confirm Password</label
+                >
+                <input
+                    type="password"
+                    name="confirm_password"
+                    class="form-control"
+                    id="confirm_password"
+                />
+                <svg
+                    class="confirm-eye-icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <path
+                        d="M12 15c-2.76 0-5-2.24-5-5s2.24-5 5-5s5 2.24 5 5s-2.24 5-5 5zm0-8a2 2 0 1 0 0 4a2 2 0 0 0 0-4zm0 3a1 1 0 1 1 0-2a1 1 0 0 1 0 2z"
+                    />
+                </svg>
+            </div>
+
+            <% if (typeof password_reset_token !== 'undefined') { %>
+            <input
+                type="hidden"
+                name="password_reset_token"
+                value="<%= password_reset_token %>"
+            />
+            <% } %>
+
+            <!-- Errors -->
+            <% if (typeof mismatch_error !== 'undefined') { %>
+            <div class="alert alert-danger" role="alert">
+                <%= mismatch_error %>
+            </div>
+            <% } %> <% if (typeof strength_error !== 'undefined') { %>
+            <div class="alert alert-danger" role="alert">
+                <% strength_error.suggestions.forEach(function(errorMessage) {
+                %>
+                <p><%= errorMessage %></p>
+                <% }); %>
+
+                <p><%= strength_error.warning %></p>
+            </div>
+            <% } %> <% if (typeof success_message !== 'undefined') { %>
+            <div class="alert alert-success" role="alert">
+                <%= success_message %>
+            </div>
+            <a href="/dashboard" class="btn btn-primary"
+                >Navigate to Dashboard</a
+            >
+            <% } else { %>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <% } %>
+        </form>
+
+        <script>
+            document
+                .querySelector(".eye-icon")
+                .addEventListener("click", function () {
+                    const passwordInput = document.getElementById("password");
+                    passwordInput.type =
+                        passwordInput.type === "password" ? "text" : "password";
+                });
+
+            document
+                .querySelector(".confirm-eye-icon")
+                .addEventListener("click", function () {
+                    const passwordConfirmInput =
+                        document.getElementById("confirm_password");
+                    passwordConfirmInput.type =
+                        passwordConfirmInput.type === "password"
+                            ? "text"
+                            : "password";
+                });
+        </script>
+    </body>
+</html>

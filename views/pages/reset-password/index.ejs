@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../../partials/head'); %>
+    </head>
+    <body>
+        <div class="container p-3 w-50 mx-auto">
+            <h4>Reset Your Password</h4>
+
+            <!-- Reset via Email -->
+            <form action="/password/reset/email/start" method="post">
+                <p>Please enter you email address</p>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input
+                        type="email"
+                        name="email"
+                        class="form-control"
+                        id="email"
+                        required
+                    />
+                </div>
+
+                <!-- Email sent message -->
+                <% if (typeof email_sent_message !== 'undefined') { %>
+                <div class="alert alert-success" role="alert">
+                    <%= email_sent_message %>
+                </div>
+                <% } %>
+
+                <button class="btn btn-primary">Reset via Email</button>
+            </form>
+        </div>
+    </body>
+</html>
