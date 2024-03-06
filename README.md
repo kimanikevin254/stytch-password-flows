@@ -1,4 +1,4 @@
-# Secure Password Reset and Creation Flows with Node.js
+# Secure Password Reset and Creation Flows with Node.js and Stytch
 
 ## Prerequisites
 
