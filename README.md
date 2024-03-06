@@ -1,5 +1,7 @@
 # Secure Password Reset and Creation Flows with Node.js and Stytch
 
+Password reset flows are a common aspect of web applications, but implementing them from scratch can be tricky, as it is important that they are secure. This project implements secure password reset and creation flows using Node.js alongside Stytch.
+
 ## Prerequisites
 
 -   A Pro [Stytch B2B](https://stytch.com/pricing?type=B2B) account
